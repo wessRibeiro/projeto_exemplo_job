@@ -13,6 +13,12 @@
 * php artisan db:seed
 ```
 
+### User root
+```
+user: root@convenia.com
+pass: secret
+```
+
 ### CODE DESCRIPTION
 ````
 | 200  | OK            | 

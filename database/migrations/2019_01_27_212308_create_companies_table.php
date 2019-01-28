@@ -12,14 +12,21 @@ use Illuminate\Database\Migrations\Migration;
 class CreateCompaniesTable extends Migration
 {
     /**
+     * Created by Weslley Ribeiro.
+     * @var string
+     */
+    private $_tb = "companies";
+
+
+    /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        if (!Schema::hasTable('companies')) {
-            Schema::create('companies', function (Blueprint $table) {
+        if (!Schema::hasTable($this->_tb)) {
+            Schema::create($this->_tb, function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->comment('nome da empresa');
                 $table->string('phone', 18)->comment('telefone da empresa com formato: 55 (11) 9####-####');
@@ -38,6 +45,6 @@ class CreateCompaniesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists($this->_tb);
     }
 }

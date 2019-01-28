@@ -4,7 +4,7 @@
  * User: Weslley Ribeiro <wess_ribeiro@hotmail.com>
  * Date 27/01/2019 19:50
  */
-namespace Convenia\V1\Models;
+namespace Convenia\Models\V1;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

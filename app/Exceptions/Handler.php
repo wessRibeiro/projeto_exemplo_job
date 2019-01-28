@@ -3,6 +3,8 @@
 namespace Convenia\Exceptions;
 
 use Exception;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -53,6 +55,26 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // Not found exception handler
+        if($exception instanceof NotFoundHttpException) {
+            return response()->json([
+                'error' => [
+                    'description' => 'Invalid URI',
+                    'messages' => []
+                ]
+            ], 404);
+        }
+
+        // Method not allowed exception handler
+        if($exception instanceof MethodNotAllowedHttpException) {
+            return response()->json([
+                'error' => [
+                    'description' => 'Method Not Allowed',
+                    'messages' => []
+                ]
+            ], 405);
+        }
+
         if ($exception instanceof ModelNotFoundException &&
             $request->wantsJson())
         {
