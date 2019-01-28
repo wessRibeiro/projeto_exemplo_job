@@ -5,6 +5,8 @@
  * Date 27/01/2019 21:44
  */
 
+namespace Convenia\Services\Api\V1;
+
 class ProviderService
 {
     protected $_userModel;

@@ -6,6 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Created by Weslley Ribeiro
+ * User: Weslley Ribeiro <wess_ribeiro@hotmail.com>
+ * Class User
+ * @package Convenia
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -16,7 +22,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'companies_id',
+        'email',
+        'password',
     ];
 
     /**
@@ -25,6 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 }

@@ -5,6 +5,7 @@
  * Date 27/01/2019 21:36
  */
 
+namespace Convenia\Services\Api\V1;
 
 use Convenia\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
