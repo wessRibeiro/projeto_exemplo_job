@@ -1,16 +1,16 @@
 <?php
 
-namespace database\seeds\Api\V1;
+namespace database\seeds\V1;
 
 use Illuminate\Database\Seeder;
-use Convenia\User;
+use Convenia\Models\V1\Provider;
 
 /**
  * Created by Weslley Ribeiro
  * User: Weslley Ribeiro <wess_ribeiro@hotmail.com>
  * Class UsersTableSeeder
  */
-class UsersTableSeeder extends Seeder
+class ProviderTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,7 +19,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-        factory(User::class)->create();
+        Provider::truncate();
+        for ($i = 0; $i <= 10; $i++) {
+            factory(Provider::class)->create();
+
+        }
     }
 }

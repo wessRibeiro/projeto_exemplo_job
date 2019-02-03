@@ -3,9 +3,12 @@
 namespace Convenia\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Exception\HttpResponseException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 /**
@@ -57,31 +60,54 @@ class Handler extends ExceptionHandler
     {
         // Not found exception handler
         if($exception instanceof NotFoundHttpException) {
-            return response()->json([
-                'error' => [
-                    'description' => 'Invalid URI',
-                    'messages' => []
-                ]
-            ], 404);
+            return response()->json(
+                [
+                    'data'    => [],
+                    'code'    => 404,
+                    'message' => 'Invalid URI'
+                ], 404);
+
+        }
+
+        // Not found exception handler
+        if($exception instanceof HttpResponseException) {
+            return response()->json(
+                [
+                    'data'    => [],
+                    'code'    => 401,
+                    'message' => 'Invalid URI'
+                ],401);
         }
 
         // Method not allowed exception handler
         if($exception instanceof MethodNotAllowedHttpException) {
-            return response()->json([
-                'error' => [
-                    'description' => 'Method Not Allowed',
-                    'messages' => []
-                ]
-            ], 405);
+            return response()->json(
+                [
+                    'data'    => [],
+                    'code'    => 405,
+                    'message' => 'Method Not Allowed'
+                ], 405);
         }
 
         if ($exception instanceof ModelNotFoundException &&
             $request->wantsJson())
         {
-            return response()->json([
-                'error' => 'Resource not found',
-                'code'  => 404
-            ], 404);
+            return response()->json(
+                [
+                    'data'    => [],
+                    'code'    => 404,
+                    'message' => 'Resource not found'
+                ],404);
+        }
+        if ($exception instanceof UnauthorizedHttpException &&
+            $request->wantsJson())
+        {
+            return response()->json(
+                [
+                    'data'    => [],
+                    'code'    => 401,
+                    'message' => 'Token not provided'
+                ],401);
         }
 
         return parent::render($request, $exception);

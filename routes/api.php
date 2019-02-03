@@ -1,6 +1,4 @@
 <?php
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,16 +11,18 @@
 */
 
 Route::group(['prefix' => 'v1'], function() {
-
-    Route::post('register', 'Api\V1\AuthController@register');
-    Route::post('login',    'Api\V1\AuthController@login');
-    Route::post('recover',  'Api\V1\AuthController@recover');
-
-    //users
-    Route::resource('users', 'Api\V1\UserController');
+    Route::group(['prefix' => 'auth'], function() {
+        //add user/company
+        Route::post('register',  'Api\V1\AuthController@register');
+        Route::post('login',     'Api\V1\AuthController@login');
+        //Route::post('recover', 'Api\V1\AuthController@recover');
+    });
 
     Route::group(['middleware' => ['jwt.auth']], function() {
         Route::get('logout', 'Api\V1\AuthController@logout');
+        //users
+        //Route::resource('users', 'Api\V1\UserController');
+        //providers
+        Route::resource('providers', 'Api\V1\ProviderController');
     });
-
 });

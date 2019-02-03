@@ -38,6 +38,7 @@
         },
         "classmap": [
             "database/seeds",
+            "database/seeds/V1",
             "database/factories"
         ],
         "files":[

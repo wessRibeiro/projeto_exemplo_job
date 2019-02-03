@@ -3,6 +3,10 @@
  * Created by Weslley Ribeiro.
  * User: Weslley Ribeiro <wess_ribeiro@hotmail.com>
  * Date 28/01/2019 00:28
+ * References:
+ * - https://medium.com/mesan-digital/tutorial-5-how-to-build-a-laravel-5-4-jwt-authentication-api-with-e-mail-verification-61d3f356f823
+ * - https://rafaell-lycan.com/2016/construindo-restful-api-laravel-parte-3/
+ * - https://www.toptal.com/laravel/restful-laravel-api-tutorial
  */
 
 namespace Convenia\Services\Api\V1;
@@ -15,7 +19,6 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
 
 /**
  * Created by Weslley Ribeiro
@@ -50,8 +53,12 @@ class AuthService
     public function register($credentials){
         try {
             $rules = [
+                'postcode'  => 'required|max:8',
+                'name'      => 'required|max:255',
+                'phone'     => 'required|max:18',
+                'adress'    => 'required|max:255',
                 'password'  => 'required|max:255',
-                'email'     => 'required|email|max:255|unique:users'
+                'email'     => 'required|email|max:100|unique:users'
             ];
 
             $validate_return = self::validateRequest($credentials, $rules);
@@ -71,15 +78,13 @@ class AuthService
         }
     }
 
-
     /**
-     *
-     * API Login, on success return JWT Auth token
      * Created by Weslley Ribeiro.
      * User: Weslley Ribeiro <wess_ribeiro@hotmail.com>
      * Date 28/01/2019 02:40
      * @param $credentials
      * @return mixed
+     * API Login, on success return JWT Auth token
      */
     public function login($credentials)
     {
@@ -93,7 +98,7 @@ class AuthService
             if ($validate_return === true) {
                 // attempt to verify the credentials and create a token for the user
                 if ($token = JWTAuth::attempt($credentials)) {
-                    return returnJson(null, 200, 'api.show.success',['token' => $token ]);
+                    return returnJson(null, 200, 'api.show.success',['token' => 'Bearer '.$token ]);
                 }
 
             } else {
@@ -131,4 +136,5 @@ class AuthService
 
         return true;
     }
+
 }

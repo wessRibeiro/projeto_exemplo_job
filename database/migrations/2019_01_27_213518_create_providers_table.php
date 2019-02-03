@@ -31,6 +31,7 @@ class CreateProvidersTable extends Migration
         if (!Schema::hasTable($this->_tb)) {
             Schema::create($this->_tb, function (Blueprint $table) {
                 $table->increments('id');
+                $table->integer('users_id')->comment('id do usuario');
                 $table->string('name')->comment('nome do fornecedor');
                 $table->string('email')->comment('email do fornecedor');
                 $table->float('monthly')->comment('mensalidade');

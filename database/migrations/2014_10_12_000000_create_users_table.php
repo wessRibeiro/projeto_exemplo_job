@@ -27,9 +27,11 @@ class CreateUsersTable extends Migration
         if (!Schema::hasTable($this->_tb)) {
             Schema::create($this->_tb, function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('companies_id')->comment('id da empresa, qual o usuario pertence');
                 $table->string('name');
                 $table->string('email', 100)->unique();
+                $table->string('phone', 18)->comment('telefone da empresa com formato: 55 (11) 9####-####');
+                $table->string('adress')->comment('endereco da empresa por extenso');
+                $table->string('postcode',9)->comment('CEP da empresa com formato: #####-###');
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');
                 $table->rememberToken();

@@ -13,10 +13,19 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Convenia\User::class, function (Faker $faker) {
+$factory->define(/**
+ * Created by Weslley Ribeiro.
+ * User: Weslley Ribeiro <wess_ribeiro@hotmail.com>
+ * Date 03/02/2019 13:12
+ * @param Faker $faker
+ * @return array
+ */
+    Convenia\User::class, function (Faker $faker) {
     return [
-        'name'              => 'User Convenia',
-        'companies_id'      => 1,//convenia
+        'name'              => 'Convenia',
+        'phone'             => '(11) 3090-6074',
+        'adress'            => 'Al. Campinas, 977 - 6º andar - Jardim Paulista, São Paulo - SP',
+        'postcode'          => '01405-003',
         'email'             => 'root@convenia.com',//$faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password'          => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
