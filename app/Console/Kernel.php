@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         //executa todo dia 1 de todo mes atualizando as mensalidades de cada fornecedor
-        $schedule->command('Providers:Monthlies')
+        $schedule->command('V1.Providers:Monthlies')
                  ->monthly();
     }
 

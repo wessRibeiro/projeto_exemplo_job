@@ -18,7 +18,7 @@ class registerProvidersMonthlies extends Command
      *
      * @var string
      */
-    protected $signature = 'Providers:Monthlies';
+    protected $signature = 'V1.Providers:Monthlies';
 
     /**
      * The console command description.

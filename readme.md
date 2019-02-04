@@ -6,6 +6,8 @@
 * cp .env.exemple .env (if haven't)
 * php artisan key:generate
 * php artisan migrate
+* cd 
+* add a virtual machine in your apache with name convenia
 ```
 
 ### Seed
