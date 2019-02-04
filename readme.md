@@ -59,5 +59,5 @@ this code haven't:
 * Tests
 * GraphQL
 * Docker
-* provider email comfirmation
+* provider email confirmation
 * Event Driven 
