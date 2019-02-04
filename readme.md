@@ -6,7 +6,6 @@
 * cp .env.exemple .env (if haven't)
 * php artisan key:generate
 * php artisan migrate
-* cd 
 * add a virtual machine in your apache with name convenia
 ```
 
@@ -30,3 +29,22 @@ pass: secret
 | 404  | Page not found|
 | 500  | Server Error  |
 ````
+
+### USE
+* Swagger is a front client to consume api. Use the method 
+login to get token and put this in form authorize.
+
+### About
+this code have:
+* register user/company
+* register providers
+* monthlies total of providers
+* Validation input
+* job monthlies
+* relationship
+* autentication JWT
+* Protection data
+* SOLID
+* Design Patterns
+* Swagger (other option like GraphQL)
+ 
