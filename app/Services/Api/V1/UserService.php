@@ -130,5 +130,26 @@ class UserService
             return returnJson(null, 400, 'api.destroy.error');
         }
     }
-    
+
+    /**
+     * Created by Weslley Ribeiro.
+     * User: Weslley Ribeiro <wess_ribeiro@hotmail.com>
+     * Date 28/01/2019 02:08
+     * @param $data
+     * @return array|bool
+     */
+    private function validateRequest($data, $rules){
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            $menssage = '';
+            foreach($validator->errors()->all() as $m){
+                $menssage .= $m."<br>";
+            }
+            return ['success' => false, 'errors'=> $menssage];
+        }
+
+        return true;
+    }
 }

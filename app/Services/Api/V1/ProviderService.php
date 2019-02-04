@@ -8,7 +8,10 @@
 namespace Convenia\Services\Api\V1;
 
 use Convenia\Models\V1\Provider;
+use JWTAuth;
+use Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 /**
  * Created by Weslley Ribeiro
@@ -41,9 +44,17 @@ class ProviderService
      */
     public function index()
     {
+        $data = [];
+        $data['monthlies_total'] = 0;
+        foreach($this->_providerModel->all() as $provider){
+            $data[$provider->id]= $provider->toArray();
+            $data[$provider->id]['monthlies'] = $provider->monthlies()->get();
+            foreach ($data[$provider->id]['monthlies'] as $monthly)
+            $data['monthlies_total'] += $monthly->monthly;
+        }
+
+        return returnJson(null, 200, 'api.index.success', $data);
         try {
-            $data = $this->_providerModel->all();
-            return returnJson(null, 200, 'api.index.success', $data);
         } catch (\Exception $ex) {
             return returnJson(null, 400, 'api.index.error');
         }
@@ -59,11 +70,32 @@ class ProviderService
     public function store($data)
     {
         try {
-            if ($entity = $this->_providerModel->create($data)) {
-                return returnJson(null, 201, 'api.store.success');
+            //get user logged
+            $user = JWTAuth::user();
+            $data['users_id'] = $user['id'];
+
+            $rules = [
+                'name'      => 'required|max:255',
+                'email'     => 'required|max:100|email',
+                'monthly'   => 'required|numeric',
+            ];
+
+            $validate_return = self::validateRequest($data, $rules);
+            if ($validate_return === true) {
+
+                if ($entity = $this->_providerModel->create($data)) {
+                    return returnJson(null, 201, 'api.store.success');
+                }
+
+            } else {
+                throw new \Exception($validate_return['errors']);
             }
 
-            return returnJson(null, 400, 'api.store.error');
+            return returnJson(null, 400, 'api.show.error');
+
+        } catch (JWTException $ex){
+            return returnJson($ex, 401);
+
         } catch (\Exception $ex) {
             return returnJson($ex, 400);
         }
@@ -102,8 +134,20 @@ class ProviderService
     public function update($id, $data)
     {
         try {
-            if ($entity = $this->_providerModel->where('id', $id)->update($data)) {
-                return returnJson(null, 200, 'api.update.success');
+            $rules = [
+                'name'      => 'required|max:255',
+                'email'     => 'required|max:100|email',
+                'monthly'   => 'required|numeric',
+            ];
+
+            $validate_return = self::validateRequest($data, $rules);
+            if ($validate_return === true) {
+                if ($entity = $this->_providerModel->where('id', $id)->update($data)) {
+                    return returnJson(null, 200, 'api.update.success');
+                }
+
+            } else {
+                throw new \Exception($validate_return['errors']);
             }
 
             return returnJson(null, 400, 'api.update.error');
@@ -130,5 +174,27 @@ class ProviderService
         } catch (\Exception $ex) {
             return returnJson(null, 400, 'api.destroy.error');
         }
+    }
+
+    /**
+     * Created by Weslley Ribeiro.
+     * User: Weslley Ribeiro <wess_ribeiro@hotmail.com>
+     * Date 28/01/2019 02:08
+     * @param $data
+     * @return array|bool
+     */
+    private function validateRequest($data, $rules){
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            $menssage = '';
+            foreach($validator->errors()->all() as $m){
+                $menssage .= $m."<br>";
+            }
+            return ['success' => false, 'errors'=> $menssage];
+        }
+
+        return true;
     }
 }

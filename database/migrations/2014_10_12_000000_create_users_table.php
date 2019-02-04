@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
                 $table->string('email', 100)->unique();
                 $table->string('phone', 18)->comment('telefone da empresa com formato: 55 (11) 9####-####');
                 $table->string('adress')->comment('endereco da empresa por extenso');
+                $table->string('cnpj', 18)->comment('cnpj da empresa com formato: ##.###.###/####-##');
                 $table->string('postcode',9)->comment('CEP da empresa com formato: #####-###');
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');

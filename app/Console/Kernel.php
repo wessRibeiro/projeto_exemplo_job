@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        \Convenia\Console\Commands\V1\registerProvidersMonthlies::class,
     ];
 
     /**
@@ -24,8 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        //executa todo dia 1 de todo mes atualizando as mensalidades de cada fornecedor
+        $schedule->command('Providers:Monthlies')
+                 ->monthly();
     }
 
     /**

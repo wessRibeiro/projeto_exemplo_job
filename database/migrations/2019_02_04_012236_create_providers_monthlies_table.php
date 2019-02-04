@@ -1,26 +1,24 @@
 <?php
-/**
- * Created by Weslley Ribeiro.
- * User: Weslley Ribeiro <wess_ribeiro@hotmail.com>
- * Date 27/01/2019 19:40
- */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Migrations\Migration;
 
 /**
  * Created by Weslley Ribeiro
  * User: Weslley Ribeiro <wess_ribeiro@hotmail.com>
- * Class CreateProvidersTable
+ * Class CreateProvidersMonthliesTable
  */
-class CreateProvidersTable extends Migration
+class CreateProvidersMonthliesTable extends Migration
 {
+    use SoftDeletes;
     /**
      * Created by Weslley Ribeiro.
      * @var string
      */
-    private $_tb = 'providers';
+    private $_tb = 'providers_monthlies';
+
     /**
      * Run the migrations.
      *
@@ -31,9 +29,7 @@ class CreateProvidersTable extends Migration
         if (!Schema::hasTable($this->_tb)) {
             Schema::create($this->_tb, function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('users_id')->comment('id do usuario');
-                $table->string('name')->comment('nome do fornecedor');
-                $table->string('email',100)->comment('email do fornecedor');
+                $table->integer('providers_id')->comment('id do fornecedor');
                 $table->float('monthly')->comment('mensalidade');
                 $table->timestamps();
                 $table->softDeletes();
