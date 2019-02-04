@@ -36,15 +36,23 @@ login to get token and put this in form authorize.
 
 ### About
 this code have:
-* register user/company
-* register providers
-* monthlies total of providers
+* Framework Laravel
+* Register user/company
+* Management providers
+* Monthlies total of providers
 * Validation input
 * job monthlies
-* relationship
-* autentication JWT
+* Relationships
+* Autentication JWT
 * Protection data
 * SOLID
 * Design Patterns
 * Swagger (other option like GraphQL)
- 
+
+this code haven't: 
+* Cache
+* Tests
+* GraphQL
+* Docker
+* provider email comfirmation
+* Event Driven 
