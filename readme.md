@@ -14,6 +14,11 @@
 * php artisan db:seed
 ```
 
+### Job
+```
+* V1.Providers:Monthlies  
+register Monthlies of providers on database
+```
 ### User root
 ```
 user: root@convenia.com
