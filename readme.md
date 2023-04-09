@@ -6,7 +6,6 @@
 * cp .env.exemple .env (if haven't)
 * php artisan key:generate
 * php artisan migrate
-* add a virtual machine in your apache with name convenia
 ```
 
 ### Seed
@@ -21,7 +20,7 @@ register Monthlies of providers on database
 ```
 ### User root
 ```
-user: root@convenia.com
+user: root@root.com
 pass: secret
 ```
 
@@ -52,7 +51,6 @@ this code have:
 * Protection data
 * SOLID
 * Design Patterns
-* Swagger (other option like GraphQL)
 
 this code haven't: 
 * Cache
